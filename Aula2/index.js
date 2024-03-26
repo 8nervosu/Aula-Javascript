@@ -27,7 +27,7 @@ console.log("subtracao", subtracao)
 
 //Multiplicação de dois valores 
 var divisao = primeiroNumero / segundoNumero
-console.log('divisao', divisao)
+console.log("divisao", divisao)
 
 //Resto da divisão
 var resto = primeiroNumero % terceiroNumero
