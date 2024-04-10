@@ -13,3 +13,17 @@ var cor = prompt("Qual sua cor favorita:")
 var numero = prompt("qual seu néumro favorito:")
 console.log("Sua cor favorita é" + " " + cor + " e seu número favorito é:" + " " + numero + ".")
 
+function ehMultiplo(numero1, numero2){
+	if(numero1 % numero2 === 0){
+		return `${numero1} é múltiplo de ${numero2}`
+	} 
+	else {
+		return `${numero1} e ${numero2} não são múltiplos`
+	}
+}
+
+let numero1 = parseFloat(prompt("Digite o primeiro número"))
+let numero2 = parseFloat(prompt("Digite o segundo número"))
+
+let resultado = ehMultiplo(numero1, numero2)
+alert(resultado)
