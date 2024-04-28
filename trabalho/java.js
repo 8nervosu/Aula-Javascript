@@ -24,6 +24,14 @@ function adicionarLivro() {
     livrosDisponiveis.push(livro);
 }
 
+// Função para exibir os livros disponíveis no console
+function exibirLivrosDisponiveis() {
+    console.log("Livros disponíveis na livraria:");
+    for (let livro of livrosDisponiveis) {
+        console.log(`Título: ${livro.titulo}, Autor: ${livro.autor}, Preço: ${livro.preco}`);
+    }
+}
+
 // Função para calcular o preço total dos livros no array
 function calcularPrecoTotal() {
     let total = 0;
@@ -48,6 +56,27 @@ function aplicarDesconto(percentualDesconto) {
     }
 }
 
+// Função para calcular o preço total com desconto aplicado
+function calcularPrecoTotalComDesconto() {
+    let precoTotalComDesconto = 0;
+    for (let livro of livrosDisponiveis) {
+        precoTotalComDesconto += livro.preco;
+    }
+    return precoTotalComDesconto;
+}
+
+// Função para exibir o valor total com desconto aplicado
+function exibirPrecoTotalComDesconto() {
+    let percentualDesconto = parseFloat(prompt("Digite o percentual de desconto a ser aplicado:"));
+    if (isNaN(percentualDesconto) || percentualDesconto < 0) {
+        console.log("Percentual de desconto inválido. Insira um número positivo.");
+    } else {
+        aplicarDesconto(percentualDesconto);
+        let precoTotalComDesconto = calcularPrecoTotalComDesconto();
+        console.log(`Preço total com desconto aplicado: ${precoTotalComDesconto}`);
+    }
+}
+
 // Função para pesquisar livros por autor
 function pesquisarPorAutor(autor) {
     let livrosEncontrados = livrosDisponiveis.filter(livro => livro.autor.toLowerCase() === autor.toLowerCase());
@@ -59,9 +88,11 @@ function ordenarPorPreco() {
     livrosDisponiveis.sort((a, b) => a.preco - b.preco);
 }
 
+// Variável para controlar o loop do programa
+let executarPrograma = true;
 // Fluxo while
-while (true) {
-    let opcao = prompt("Escolha uma opção:\n1. Adicionar livro\n2. Exibir livros disponíveis\n3. Calcular preço total\n4. Calcular média de preço\n5. Aplicar desconto\n6. Pesquisar livros por autor\n7. Ordenar livros por preço\n8. Sair");
+while (executarPrograma) {
+    let opcao = prompt("Escolha uma opção:\n1. Adicionar livro\n2. Exibir livros disponíveis\n3. Calcular preço total\n4. Calcular média de preço\n5. Aplicar desconto\n6. Pesquisar livros por autor\n7. Ordenar livros por preço\n8. Exibir preço total com desconto\n9. Sair");
 
     switch (opcao) {
         case "1":
@@ -103,9 +134,13 @@ while (true) {
             exibirLivrosDisponiveis();
             break;
         case "8":
+            exibirPrecoTotalComDesconto();
+            break;
+        case "9":
             console.log("Saindo...");
-            // Encerrar o loop e finalizar o programa
-            break; // Utilize break em vez de return
+            // Definir a variável executarPrograma como false para sair do loop
+            executarPrograma = false;
+            break;
         default:
             console.log("Opção inválida. Tente novamente.");
     }
