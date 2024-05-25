@@ -1,4 +1,5 @@
 let livrosDisponiveis = [];
+let ordenacaoCrescente = true; // Variável para controlar a direção da ordenação
 
 // Função para exibir notificações
 function exibirNotificacao(mensagem) {
@@ -148,7 +149,12 @@ function pesquisarPorAutor() {
 
 // Função para ordenar os livros por preço
 function ordenarPorPreco() {
-  livrosDisponiveis.sort((a, b) => a.preco - b.preco);
+  if (ordenacaoCrescente) {
+    livrosDisponiveis.sort((a, b) => a.preco - b.preco);
+  } else {
+    livrosDisponiveis.sort((a, b) => b.preco - a.preco);
+  }
+  ordenacaoCrescente = !ordenacaoCrescente; // Alternar a direção da ordenação
   exibirNotificacao("Livros ordenados por preço.");
   atualizarListaLivros();
 }

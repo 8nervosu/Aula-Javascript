@@ -80,6 +80,8 @@ button:hover {
 #livros-lista {
   margin-top: 20px;
   text-align: left;
+  position: sticky;
+  top: 30px; /* Distância do topo */
 }
 
 #livros-lista h2 {
@@ -126,15 +128,15 @@ button:hover {
 #notification {
   position: fixed;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
+  right: 20px; /* Align to the right */
+  background-color: #005035;
   color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px; /* Increased padding */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Increased shadow */
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
+  z-index: 999; /* Ensure it's above other elements */
 }
 
 #notification.show {
