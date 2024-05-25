@@ -3,64 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Livraria</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Livraria</h1>
+    <div class="container">
+        <div class="left-section">
+            <h1>Livraria</h1>
+            
+            <div class="form-section">
+                <h2>Adicionar Livro</h2>
+                <div class="form-group">
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" required>
+                </div>
+                <div class="form-group">
+                    <label for="autor">Autor:</label>
+                    <input type="text" id="autor" required>
+                </div>
+                <div class="form-group">
+                    <label for="preco">Preço:</label>
+                    <input type="number" id="preco" step="0.01" required>
+                </div>
+                <button onclick="adicionarLivro()">Adicionar Livro</button>
+            </div>
 
-    <!-- Formulário para adicionar um novo livro -->
-    <h2>Adicionar Livro</h2>
-    <form id="formAdicionarLivro">
-        <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" required><br>
+            <div class="form-section">
+                <h2>Aplicar Desconto</h2>
+                <div class="form-group">
+                    <label for="percentualDesconto">Percentual de Desconto:</label>
+                    <input type="number" id="percentualDesconto" step="0.01">
+                </div>
+                <button onclick="aplicarDesconto()">Aplicar Desconto</button>
+            </div>
 
-        <label for="autor">Autor:</label>
-        <input type="text" id="autor" name="autor" required><br>
+            <div class="form-section">
+                <h2>Pesquisar por Autor</h2>
+                <div class="form-group">
+                    <label for="autorPesquisa">Autor:</label>
+                    <input type="text" id="autorPesquisa">
+                </div>
+                <button onclick="pesquisarPorAutor()">Pesquisar</button>
+            </div>
 
-        <label for="preco">Preço:</label>
-        <input type="number" id="preco" name="preco" step="0.01" required><br>
+            <button class="secondary-button" onclick="ordenarPorPreco()">Ordenar por Preço</button>
 
-        <button onclick="adicionarLivro()">Adicionar Livro</button>
-    </form>
+            <div class="fake-data-section">
+                <h2>Adicionar Dados Falsos</h2>
+                <label class="switch">
+                    <input type="checkbox" id="fakeDataSwitch" onchange="toggleFakeData()">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            
+            <div id="resumo">
+                <h2>Resumo</h2>
+                <p id="preco-total">Preço Total: R$ 0.00</p>
+                <p id="media-preco">Média de Preço: R$ 0.00</p>
+            </div>
+        </div>
 
-    <!-- Botão para exibir os livros disponíveis -->
-    <h2>Exibir Livros Disponíveis</h2>
-    <button onclick="exibirLivrosDisponiveis()">Exibir Livros Disponíveis</button>
+        <div class="right-section">
+            <div id="livros-lista">
+                <h2>Livros Disponíveis</h2>
+                <ul id="livros"></ul>
+            </div>
+        </div>
 
-    <!-- Botão para calcular o preço total dos livros -->
-    <h2>Calcular Preço Total</h2>
-    <button onclick="calcularPrecoTotal()">Calcular Preço Total</button>
-
-    <!-- Botão para calcular a média de preços dos livros -->
-    <h2>Calcular Média de Preço</h2>
-    <button onclick="calcularMediaPreco()">Calcular Média de Preço</button>
-
-    <!-- Formulário para aplicar desconto -->
-    <h2>Aplicar Desconto</h2>
-    <form id="formAplicarDesconto">
-        <label for="percentualDesconto">Percentual de Desconto:</label>
-        <input type="number" id="percentualDesconto" name="percentualDesconto" step="0.01" required><br>
-
-        <button onclick="exibirPrecoTotalComDesconto()">Aplicar Desconto</button>
-    </form>
-
-    <!-- Formulário para pesquisar livros por autor -->
-    <h2>Pesquisar Livros por Autor</h2>
-    <form id="formPesquisarPorAutor">
-        <label for="autorPesquisa">Nome do Autor:</label>
-        <input type="text" id="autorPesquisa" name="autorPesquisa" required><br>
-
-        <button onclick="pesquisarPorAutor()">Pesquisar</button>
-    </form>
-
-    <!-- Botão para ordenar os livros por preço -->
-    <h2>Ordenar Livros por Preço</h2>
-    <button onclick="ordenarPorPreco()">Ordenar Livros por Preço</button>
-
-    <!-- Botão para exibir o preço total com desconto aplicado -->
-    <h2>Exibir Preço Total com Desconto</h2>
-    <button onclick="exibirPrecoTotalComDesconto()">Exibir Preço Total com Desconto</button>
+        <div id="notification" class="hidden"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>

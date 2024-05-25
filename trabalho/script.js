@@ -1,5 +1,15 @@
-// Definindo um array para armazenar os livros disponíveis na livraria
 let livrosDisponiveis = [];
+
+// Função para exibir notificações
+function exibirNotificacao(mensagem) {
+    const notificationElement = document.getElementById("notification");
+    notificationElement.textContent = mensagem;
+    notificationElement.classList.add("show");
+
+    setTimeout(() => {
+        notificationElement.classList.remove("show");
+    }, 3000);
+}
 
 // Função para adicionar um novo livro ao array de livros disponíveis
 function adicionarLivro() {
@@ -9,7 +19,7 @@ function adicionarLivro() {
 
     // Verificar se o preço é um número válido
     if (isNaN(preco) || preco <= 0) {
-        alert("Preço inválido. Insira um número positivo.");
+        exibirNotificacao("Preço inválido. Insira um número positivo.");
         return;
     }
 
@@ -22,16 +32,39 @@ function adicionarLivro() {
 
     // Adicionando o livro ao array de livros disponíveis
     livrosDisponiveis.push(livro);
-    alert("Livro adicionado com sucesso!");
+    exibirNotificacao("Livro adicionado com sucesso!");
+    atualizarListaLivros();
+    atualizarResumo();
+    limparFormulario();
+}
+
+// Função para limpar o formulário
+function limparFormulario() {
+    document.getElementById("titulo").value = "";
+    document.getElementById("autor").value = "";
+    document.getElementById("preco").value = "";
 }
 
 // Função para exibir os livros disponíveis
-function exibirLivrosDisponiveis() {
-    let livrosHTML = "";
-    for (let livro of livrosDisponiveis) {
-        livrosHTML += `Título: ${livro.titulo}, Autor: ${livro.autor}, Preço: ${livro.preco}\n`;
+function atualizarListaLivros() {
+    let livrosListElement = document.getElementById("livros");
+    livrosListElement.innerHTML = "";
+    for (let [index, livro] of livrosDisponiveis.entries()) {
+        let livroElement = document.createElement("li");
+        livroElement.innerHTML = `
+            Título: ${livro.titulo}, Autor: ${livro.autor}, Preço: R$ ${livro.preco.toFixed(2)}
+            <button onclick="removerLivro(${index})">Remover</button>
+        `;
+        livrosListElement.appendChild(livroElement);
     }
-    alert("Livros disponíveis na livraria:\n" + livrosHTML);
+}
+
+// Função para remover um livro da lista
+function removerLivro(index) {
+    livrosDisponiveis.splice(index, 1);
+    exibirNotificacao("Livro removido com sucesso!");
+    atualizarListaLivros();
+    atualizarResumo();
 }
 
 // Função para calcular o preço total dos livros
@@ -46,15 +79,27 @@ function calcularPrecoTotal() {
 // Função para calcular a média de preços dos livros
 function calcularMediaPreco() {
     let total = calcularPrecoTotal();
-    let media = total / livrosDisponiveis.length;
+    let media = livrosDisponiveis.length ? (total / livrosDisponiveis.length) : 0;
     return media;
+}
+
+// Função para atualizar o resumo de preços
+function atualizarResumo() {
+    let precoTotalElement = document.getElementById("preco-total");
+    let mediaPrecoElement = document.getElementById("media-preco");
+
+    let precoTotal = calcularPrecoTotal();
+    let mediaPreco = calcularMediaPreco();
+
+    precoTotalElement.textContent = `Preço Total: R$ ${precoTotal.toFixed(2)}`;
+    mediaPrecoElement.textContent = `Média de Preço: R$ ${mediaPreco.toFixed(2)}`;
 }
 
 // Função para aplicar desconto em todos os livros
 function aplicarDesconto() {
     let percentualDesconto = parseFloat(document.getElementById("percentualDesconto").value);
     if (isNaN(percentualDesconto) || percentualDesconto < 0) {
-        alert("Percentual de desconto inválido. Insira um número positivo.");
+        exibirNotificacao("Percentual de desconto inválido. Insira um número positivo.");
         return;
     }
 
@@ -62,32 +107,71 @@ function aplicarDesconto() {
         let desconto = livro.preco * (percentualDesconto / 100);
         livro.preco -= desconto;
     }
-    alert("Desconto aplicado com sucesso!");
-}
-
-// Função para exibir o preço total com desconto aplicado
-function exibirPrecoTotalComDesconto() {
-    let precoTotalComDesconto = calcularPrecoTotal();
-    alert(`Preço total com desconto aplicado: ${precoTotalComDesconto}`);
+    exibirNotificacao("Desconto aplicado com sucesso!");
+    atualizarListaLivros();
+    atualizarResumo();
 }
 
 // Função para pesquisar livros por autor
 function pesquisarPorAutor() {
-    let autorPesquisa = document.getElementById("autorPesquisa").value;
-    let livrosEncontrados = livrosDisponiveis.filter(livro => livro.autor.toLowerCase() === autorPesquisa.toLowerCase());
-    let livrosHTML = "";
-    if (livrosEncontrados.length === 0) {
-        alert("Nenhum livro encontrado para o autor especificado.");
+    let autorPesquisa = document.getElementById("autorPesquisa").value.toLowerCase();
+    let livrosListElement = document.getElementById("livros");
+    livrosListElement.innerHTML = "";
+
+    let livrosFiltrados = livrosDisponiveis.filter(livro => livro.autor.toLowerCase().includes(autorPesquisa));
+    
+    if (livrosFiltrados.length === 0) {
+        livrosListElement.innerHTML = "<li>Nenhum livro encontrado.</li>";
     } else {
-        for (let livro of livrosEncontrados) {
-            livrosHTML += `Título: ${livro.titulo}, Autor: ${livro.autor}, Preço: ${livro.preco}\n`;
+        for (let [index, livro] of livrosFiltrados.entries()) {
+            let livroElement = document.createElement("li");
+            livroElement.innerHTML = `
+                Título: ${livro.titulo}, Autor: ${livro.autor}, Preço: R$ ${livro.preco.toFixed(2)}
+                <button onclick="removerLivro(${index})">Remover</button>
+            `;
+            livrosListElement.appendChild(livroElement);
         }
-        alert(`Livros encontrados para o autor "${autorPesquisa}":\n${livrosHTML}`);
     }
 }
 
-// Função para ordenar os livros por preço (do mais barato para o mais caro)
+// Função para ordenar os livros por preço
 function ordenarPorPreco() {
     livrosDisponiveis.sort((a, b) => a.preco - b.preco);
-    alert("Livros ordenados por preço.");
+    exibirNotificacao("Livros ordenados por preço.");
+    atualizarListaLivros();
+}
+
+function toggleFakeData() {
+    const fakeDataSwitch = document.getElementById("fakeDataSwitch");
+    if (fakeDataSwitch.checked) {
+        generateFakeData();
+    } else {
+        clearFakeData();
+    }
+}
+
+function generateFakeData() {
+    const fakeBooks = [
+        { titulo: "Aventuras de Sherlock Holmes", autor: "Arthur Conan Doyle", preco: 25.99 },
+        { titulo: "Orgulho e Preconceito", autor: "Jane Austen", preco: 20.50 },
+        { titulo: "O Senhor dos Anéis", autor: "J.R.R. Tolkien", preco: 35.75 },
+        { titulo: "Cem Anos de Solidão", autor: "Gabriel García Márquez", preco: 18.90 },
+        { titulo: "1984", autor: "George Orwell", preco: 22.25 }
+    ];
+
+    for (const book of fakeBooks) {
+        book.fake = true;
+        livrosDisponiveis.push(book);
+    }
+
+    atualizarListaLivros();
+    atualizarResumo();
+    exibirNotificacao("Dados falsos adicionados com sucesso!");
+}
+
+function clearFakeData() {
+    livrosDisponiveis = livrosDisponiveis.filter(book => !book.fake);
+    atualizarListaLivros();
+    atualizarResumo();
+    exibirNotificacao("Dados falsos removidos com sucesso!");
 }
