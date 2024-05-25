@@ -203,3 +203,10 @@ body {
     width: 40%;
 }
 
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
