@@ -90,18 +90,38 @@ function atualizarListaLivros() {
   }
 }
 
+// Função para exibir o modal de confirmação
+function exibirModalConfirmacao(mensagem, onConfirm) {
+  const modal = document.getElementById("confirmationModal");
+  const modalMessage = document.getElementById("modal-message");
+  const confirmButton = document.getElementById("confirmButton");
+  const cancelButton = document.getElementById("cancelButton");
+
+  modalMessage.textContent = mensagem;
+  modal.style.display = "block";
+
+  confirmButton.onclick = () => {
+    onConfirm();
+    modal.style.display = "none";
+  };
+
+  cancelButton.onclick = () => {
+    modal.style.display = "none";
+  };
+}
+
 // Função para remover um livro da lista
 function removerLivro(index) {
   let livroRemover = livrosDisponiveis[index].titulo;
-  if (
-    !confirm(`Tem certeza de que deseja remover o livro "${livroRemover}"?`)
-  ) {
-    return;
-  }
-  livrosDisponiveis.splice(index, 1);
-  exibirNotificacao("Livro removido com sucesso!");
-  atualizarListaLivros();
-  atualizarResumo();
+  exibirModalConfirmacao(
+    `Tem certeza de que deseja remover o livro "${livroRemover}"?`,
+    () => {
+      livrosDisponiveis.splice(index, 1);
+      exibirNotificacao(`Livro "${livroRemover}" removido com sucesso!`);
+      atualizarListaLivros();
+      atualizarResumo();
+    }
+  );
 }
 
 // Função para calcular o preço total dos livros
