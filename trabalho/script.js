@@ -84,7 +84,10 @@ function atualizarListaLivros() {
 
 // Função para remover um livro da lista
 function removerLivro(index) {
-  if (!confirm("Tem certeza de que deseja remover este livro?")) {
+  let livroRemover = livrosDisponiveis[index].titulo; // Get the title of the book to be removed
+  if (
+    !confirm(`Tem certeza de que deseja remover o livro "${livroRemover}"?`)
+  ) {
     return;
   }
   livrosDisponiveis.splice(index, 1);
