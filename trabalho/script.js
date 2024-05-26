@@ -70,21 +70,29 @@ function limparFormulario() {
 function atualizarListaLivros() {
   let livrosListElement = document.getElementById("livros");
   livrosListElement.innerHTML = "";
+
+  if (livrosDisponiveis.length === 0) {
+    let emptyMessageElement = document.createElement("li");
+    emptyMessageElement.textContent = "Nenhum livro disponível.";
+    livrosListElement.appendChild(emptyMessageElement);
+    return;
+  }
+
   for (let [index, livro] of livrosDisponiveis.entries()) {
     let livroElement = document.createElement("li");
     livroElement.innerHTML = `
-              Título: ${livro.titulo}<br>
-              Autor: ${livro.autor}<br>
-              Preço: R$ ${livro.preco.toFixed(2)}<br>
-              <button onclick="removerLivro(${index})">Remover</button>
-          `;
+      <strong>Título:</strong> ${livro.titulo}<br>
+      <strong>Autor:</strong> ${livro.autor}<br>
+      <strong>Preço:</strong> R$ ${livro.preco.toFixed(2)}<br>
+      <button onclick="removerLivro(${index})">Remover</button>
+    `;
     livrosListElement.appendChild(livroElement);
   }
 }
 
 // Função para remover um livro da lista
 function removerLivro(index) {
-  let livroRemover = livrosDisponiveis[index].titulo; // Get the title of the book to be removed
+  let livroRemover = livrosDisponiveis[index].titulo;
   if (
     !confirm(`Tem certeza de que deseja remover o livro "${livroRemover}"?`)
   ) {
