@@ -258,3 +258,44 @@ function clearFakeData() {
   atualizarResumo();
   exibirNotificacao("Dados falsos removidos com sucesso!");
 }
+
+// Função para exportar a lista de livros e o resumo como PDF
+function exportarPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  let y = 10;
+
+  doc.setFontSize(16);
+  doc.text("Lista de Livros", 10, y);
+  y += 10;
+
+  if (livrosDisponiveis.length === 0) {
+    doc.text("Nenhum livro disponível.", 10, y);
+  } else {
+    doc.setFontSize(12);
+    livrosDisponiveis.forEach((livro, index) => {
+      doc.text(
+        `${index + 1}. Título: ${livro.titulo}, Autor: ${
+          livro.autor
+        }, Preço: R$ ${livro.preco.toFixed(2)}`,
+        10,
+        y
+      );
+      y += 10;
+    });
+  }
+
+  y += 10;
+  doc.setFontSize(16);
+  doc.text("Resumo", 10, y);
+  y += 10;
+  doc.setFontSize(12);
+  doc.text(document.getElementById("preco-total").textContent, 10, y);
+  y += 10;
+  doc.text(document.getElementById("media-preco").textContent, 10, y);
+  y += 10;
+  doc.text(document.getElementById("total-livros").textContent, 10, y);
+
+  doc.save("livros_resumo.pdf");
+}
