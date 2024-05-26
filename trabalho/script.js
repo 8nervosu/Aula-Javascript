@@ -144,12 +144,15 @@ function calcularMediaPreco() {
 function atualizarResumo() {
   let precoTotalElement = document.getElementById("preco-total");
   let mediaPrecoElement = document.getElementById("media-preco");
+  let totalLivrosElement = document.getElementById("total-livros");
 
   let precoTotal = calcularPrecoTotal();
   let mediaPreco = calcularMediaPreco();
+  let totalLivros = livrosDisponiveis.length;
 
   precoTotalElement.textContent = `Preço Total: R$ ${precoTotal.toFixed(2)}`;
   mediaPrecoElement.textContent = `Média de Preço: R$ ${mediaPreco.toFixed(2)}`;
+  totalLivrosElement.textContent = `Total de Livros: ${totalLivros}`;
 }
 
 // Função para aplicar desconto em todos os livros
