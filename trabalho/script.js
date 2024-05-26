@@ -14,29 +14,49 @@ function exibirNotificacao(mensagem) {
 
 // Função para adicionar um novo livro ao array de livros disponíveis
 function adicionarLivro() {
+  if (validarFormulario()) {
+    let titulo = document.getElementById("titulo").value;
+    let autor = document.getElementById("autor").value;
+    let preco = parseFloat(document.getElementById("preco").value);
+
+    // Criando um objeto livro
+    let livro = {
+      titulo: titulo,
+      autor: autor,
+      preco: preco,
+    };
+
+    // Adicionando o livro ao array de livros disponíveis
+    livrosDisponiveis.push(livro);
+    exibirNotificacao("Livro adicionado com sucesso!");
+    atualizarListaLivros();
+    atualizarResumo();
+    limparFormulario();
+  }
+}
+
+// Function to validate form inputs before adding a new book
+function validarFormulario() {
   let titulo = document.getElementById("titulo").value;
   let autor = document.getElementById("autor").value;
   let preco = parseFloat(document.getElementById("preco").value);
 
-  // Verificar se o preço é um número válido
-  if (isNaN(preco) || preco <= 0) {
-    exibirNotificacao("Preço inválido. Insira um número positivo.");
-    return;
+  if (titulo.trim() === "") {
+    exibirNotificacao("Por favor, insira o título do livro.");
+    return false;
   }
 
-  // Criando um objeto livro
-  let livro = {
-    titulo: titulo,
-    autor: autor,
-    preco: preco,
-  };
+  if (autor.trim() === "") {
+    exibirNotificacao("Por favor, insira o nome do autor.");
+    return false;
+  }
 
-  // Adicionando o livro ao array de livros disponíveis
-  livrosDisponiveis.push(livro);
-  exibirNotificacao("Livro adicionado com sucesso!");
-  atualizarListaLivros();
-  atualizarResumo();
-  limparFormulario();
+  if (isNaN(preco) || preco <= 0) {
+    exibirNotificacao("Por favor, insira um preço válido para o livro.");
+    return false;
+  }
+
+  return true;
 }
 
 // Função para limpar o formulário
@@ -64,6 +84,9 @@ function atualizarListaLivros() {
 
 // Função para remover um livro da lista
 function removerLivro(index) {
+  if (!confirm("Tem certeza de que deseja remover este livro?")) {
+    return;
+  }
   livrosDisponiveis.splice(index, 1);
   exibirNotificacao("Livro removido com sucesso!");
   atualizarListaLivros();
