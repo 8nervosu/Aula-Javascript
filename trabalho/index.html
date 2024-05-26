@@ -31,7 +31,7 @@
         <div class="form-section">
           <h2>Aplicar Desconto</h2>
           <div class="form-group">
-            <label for="percentualDesconto">Percentual de Desconto:</label>
+            <label for="percentualDesconto">Percentual de Desconto (%):</label>
             <input type="number" id="percentualDesconto" step="0.01" min="0" />
           </div>
           <button onclick="aplicarDesconto()">Aplicar Desconto</button>
@@ -50,18 +50,6 @@
           Ordenar por Preço
         </button>
 
-        <div class="fake-data-section">
-          <h2>Adicionar Dados Falsos</h2>
-          <label class="switch">
-            <input
-              type="checkbox"
-              id="fakeDataSwitch"
-              onchange="toggleFakeData()"
-            />
-            <span class="slider round"></span>
-          </label>
-        </div>
-
         <div id="resumo">
           <h2>Resumo</h2>
           <p id="preco-total">Preço Total: R$ 0.00</p>
@@ -76,7 +64,19 @@
         </div>
       </div>
 
-      <div id="notification" class="hidden"></div>
+      <div id="notification" class="notification"></div>
+
+      <div class="fake-data-section">
+        <h2 class="visually-hidden">Adicionar Dados Falsos</h2>
+        <label class="switch">
+          <input
+            type="checkbox"
+            id="fakeDataSwitch"
+            onchange="toggleFakeData()"
+          />
+          <span class="slider round"></span>
+        </label>
+      </div>
     </div>
 
     <!-- Modal HTML -->
@@ -89,13 +89,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Other HTML elements -->
-
-    <div id="notification" class="notification"></div>
-    <ul id="livros"></ul>
-    <p id="preco-total"></p>
-    <p id="media-preco"></p>
 
     <script src="script.js"></script>
   </body>
