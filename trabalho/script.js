@@ -73,11 +73,11 @@ function atualizarListaLivros() {
   for (let [index, livro] of livrosDisponiveis.entries()) {
     let livroElement = document.createElement("li");
     livroElement.innerHTML = `
-            Título: ${livro.titulo}, Autor: ${
-      livro.autor
-    }, Preço: R$ ${livro.preco.toFixed(2)}
-            <button onclick="removerLivro(${index})">Remover</button>
-        `;
+              Título: ${livro.titulo}<br>
+              Autor: ${livro.autor}<br>
+              Preço: R$ ${livro.preco.toFixed(2)}<br>
+              <button onclick="removerLivro(${index})">Remover</button>
+          `;
     livrosListElement.appendChild(livroElement);
   }
 }
