@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,91 +8,77 @@
   </head>
   <body>
     <div class="container">
-      <div class="left-section">
-        <h1>Livraria</h1>
-
-        <div class="form-section">
-          <h2>Adicionar Livro</h2>
-          <div class="form-group">
+      <h1>Gestão de Livros</h1>
+      <div class="split-container">
+        <div class="left-container">
+          <div class="form-container">
+            <h2>Adicionar Livro</h2>
             <label for="titulo">Título:</label>
-            <input type="text" id="titulo" required />
-          </div>
-          <div class="form-group">
+            <input type="text" id="titulo" />
             <label for="autor">Autor:</label>
-            <input type="text" id="autor" required />
-          </div>
-          <div class="form-group">
+            <input type="text" id="autor" />
             <label for="preco">Preço:</label>
-            <input type="number" id="preco" step="0.01" min="0" required />
+            <input type="number" id="preco" />
+            <button onclick="adicionarLivro()">Adicionar Livro</button>
           </div>
-          <button onclick="adicionarLivro()">Adicionar Livro</button>
-        </div>
 
-        <div class="form-section">
-          <h2>Aplicar Desconto</h2>
-          <div class="form-group">
-            <label for="percentualDesconto">Percentual de Desconto (%):</label>
-            <input type="number" id="percentualDesconto" step="0.01" min="0" />
-          </div>
-          <button onclick="aplicarDesconto()">Aplicar Desconto</button>
-        </div>
-
-        <div class="form-section">
-          <h2>Pesquisar por Autor</h2>
-          <div class="form-group">
-            <label for="autorPesquisa">Autor:</label>
+          <div class="actions-container">
+            <h2>Ações</h2>
+            <label for="percentualDesconto">Percentual de Desconto:</label>
+            <input type="number" id="percentualDesconto" placeholder="0" />
+            <button onclick="aplicarDesconto()">Aplicar Desconto</button>
+            <label for="autorPesquisa">Pesquisar por Autor:</label>
             <input type="text" id="autorPesquisa" />
+            <button onclick="pesquisarPorAutor()">Pesquisar</button>
           </div>
-          <button onclick="pesquisarPorAutor()">Pesquisar</button>
         </div>
 
-        <button class="secondary-button" onclick="ordenarPorPreco()">
-          Ordenar por Preço
-        </button>
+        <div class="right-container">
+          <div class="resumo-container">
+            <h2>Resumo</h2>
+            <p id="preco-total">Preço Total: R$ 0.00</p>
+            <p id="media-preco">Média de Preço: R$ 0.00</p>
+            <p id="total-livros">Total de Livros: 0</p>
+          </div>
+          <div class="button-container">
+            <button onclick="exportarPDF()">Exportar PDF</button>
+            <button onclick="ordenarPorPreco()">Ordenar por Preço</button>
+          </div>
+          <div class="list-header">
+            <h2>Livros Disponíveis</h2>
+            <div class="toggle-container">
+              <label class="toggle-label" for="fakeDataSwitch"
+                >Gerar Dados Falsos</label
+              >
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  id="fakeDataSwitch"
+                  onchange="toggleFakeData()"
+                />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
 
-        <div id="resumo">
-          <h2>Resumo</h2>
-          <p id="preco-total">Preço Total: R$ 0.00</p>
-          <p id="media-preco">Média de Preço: R$ 0.00</p>
-          <p id="total-livros">Total de Livros: 0</p>
+          <ul id="livros">
+            <!-- Lista de livros será inserida aqui -->
+          </ul>
         </div>
-        <button onclick="exportarPDF()">Exportar PDF</button>
-      </div>
-
-      <div class="right-section">
-        <div id="livros-lista">
-          <h2>Livros Disponíveis</h2>
-          <ul id="livros"></ul>
-        </div>
-      </div>
-
-      <div id="notification" class="notification"></div>
-
-      <div class="fake-data-section">
-        <h2 class="visually-hidden">Adicionar Dados Falsos</h2>
-        <label class="switch">
-          <input
-            type="checkbox"
-            id="fakeDataSwitch"
-            onchange="toggleFakeData()"
-          />
-          <span class="slider round"></span>
-        </label>
       </div>
     </div>
 
-    <!-- Modal HTML -->
+    <div id="notification" class="notification"></div>
+
     <div id="confirmationModal" class="modal">
       <div class="modal-content">
         <p id="modal-message"></p>
-        <div class="modal-buttons">
-          <button id="confirmButton">Confirmar</button>
-          <button id="cancelButton">Cancelar</button>
-        </div>
+        <button id="confirmButton">Confirmar</button>
+        <button id="cancelButton">Cancelar</button>
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
