@@ -259,18 +259,45 @@ function clearFakeData() {
   exibirNotificacao("Dados falsos removidos com sucesso!");
 }
 
-// Função para exportar a lista de livros e o resumo como PDF
+// Função para exportar a lista de livros em PDF
 function exportarPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
-
   let y = 10;
 
+  // Adicionando o cabeçalho
+  doc.setFontSize(20);
+  doc.setFont("helvetica", "bold");
+  doc.text("Relatório da Livraria", 105, y, null, null, "center");
+  y += 10;
+
+  doc.setLineWidth(0.5);
+  doc.line(10, y, 200, y);
+  y += 10;
+
+  // Adicionando a data e hora
+  const today = new Date();
+  const dateStr = `${today.getDate()}/${
+    today.getMonth() + 1
+  }/${today.getFullYear()}`;
+  const timeStr = `${today.getHours()}:${today
+    .getMinutes()
+    .toString()
+    .padStart(2, "0")}:${today.getSeconds().toString().padStart(2, "0")}`;
+
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
+  doc.text(`Data de Geração: ${dateStr} às ${timeStr}`, 10, y);
+  y += 10;
+
   doc.setFontSize(16);
+  doc.setFont("helvetica", "bold");
   doc.text("Lista de Livros", 10, y);
   y += 10;
 
   if (livrosDisponiveis.length === 0) {
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
     doc.text("Nenhum livro disponível.", 10, y);
   } else {
     doc.setFontSize(12);
@@ -288,9 +315,12 @@ function exportarPDF() {
 
   y += 10;
   doc.setFontSize(16);
+  doc.setFont("helvetica", "bold");
   doc.text("Resumo", 10, y);
   y += 10;
+
   doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
   doc.text(document.getElementById("preco-total").textContent, 10, y);
   y += 10;
   doc.text(document.getElementById("media-preco").textContent, 10, y);
