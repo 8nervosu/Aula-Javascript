@@ -45,7 +45,7 @@ label {
 
 input[type="text"],
 input[type="number"] {
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 10px;
   margin: 0 auto;
   border: 1px solid #ccc;
@@ -60,7 +60,7 @@ button {
   padding: 10px;
   border-radius: 4px;
   cursor: pointer;
-  width: calc(100% - 20px);
+  width: 100%;
   margin-bottom: 10px;
 }
 
