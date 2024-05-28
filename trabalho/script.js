@@ -41,7 +41,7 @@ function adicionarLivro() {
   }
 }
 
-// Function to validate form inputs before adding a new book
+//Função validação input
 function validarFormulario() {
   let titulo = document.getElementById("titulo").value;
   let autor = document.getElementById("autor").value;
@@ -74,7 +74,6 @@ function limparFormulario() {
   document.getElementById("autor").value = "";
   document.getElementById("preco").value = "";
 
-  // Remove classes de sucesso e erro do botão de "Adicionar Livro"
   document
     .getElementById("adicionarLivroBtn")
     .classList.remove("success", "error");
@@ -237,7 +236,7 @@ function ordenarPorPreco() {
   } else {
     livrosDisponiveis.sort((a, b) => b.preco - a.preco);
   }
-  ordenacaoCrescente = !ordenacaoCrescente; // Alternar a direção da ordenação
+  ordenacaoCrescente = !ordenacaoCrescente;
   exibirNotificacao("Livros ordenados por preço.", "info");
   atualizarListaLivros();
 }
@@ -353,5 +352,5 @@ function exportarPDF() {
   y += 10;
   doc.text(document.getElementById("total-livros").textContent, 10, y);
 
-  doc.save("livros_resumo.pdf");
+  doc.save("Livraria_resumo.pdf");
 }
