@@ -143,6 +143,8 @@ function removerLivro(index) {
   );
 }
 
+let livroAtualIndex = null;
+
 function editarLivro(index) {
   livroAtualIndex = index;
   const livro = livrosDisponiveis[index];
