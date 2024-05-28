@@ -233,3 +233,13 @@ input:checked + .slider:before {
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
+.right-container {
+  width: 48%;
+  overflow: hidden;
+}
+
+#livros {
+  max-height: 430px;
+  overflow-y: auto;
+}
