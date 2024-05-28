@@ -86,6 +86,35 @@ button:hover {
   background-color: #0056b3;
 }
 
+button.editar {
+  background-color: #038a83;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+button.remover {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+button.editar:hover,
+button.remover:hover {
+  opacity: 0.8;
+}
+
+.livro-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
 /* Estilo da lista de livros */
 ul {
   list-style-type: none;
@@ -221,7 +250,7 @@ input:checked + .slider:before {
   transform: translateX(14px);
 }
 
-/* Estilo do contêiner dos botões */
+/* Estilo do container dos botões */
 .button-container {
   display: flex;
   justify-content: space-between;
@@ -248,4 +277,72 @@ input:checked + .slider:before {
 
 .info {
   background-color: #038a83;
+}
+
+#formulario-edicao {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#formulario-edicao input {
+  display: block;
+  margin-bottom: 10px;
+  padding: 8px;
+  width: calc(100% - 16px);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#formulario-edicao button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#formulario-edicao button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos do modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 5px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

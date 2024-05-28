@@ -93,14 +93,15 @@ function atualizarListaLivros() {
 
   for (let [index, livro] of livrosDisponiveis.entries()) {
     let livroElement = document.createElement("li");
+    livroElement.id = `livro-${index}`;
     livroElement.innerHTML = `
-          <div class="livro-info">
-              Título: ${livro.titulo}<br>
-              Autor: ${livro.autor}<br>
-              Preço: R$ ${livro.preco.toFixed(2)}
-          </div>
-          <button onclick="removerLivro(${index})">Remover</button>
-      `;
+          Título: ${livro.titulo}<br>
+          Autor: ${livro.autor}<br>
+          Preço: R$ ${livro.preco.toFixed(2)}<br>
+          <div class="livro-buttons">
+          <button class="editar" onclick="editarLivro(${index})">Editar</button>
+          <button class="remover" onclick="removerLivro(${index})">Remover</button>
+          </div>`;
     livrosListElement.appendChild(livroElement);
   }
 }
@@ -140,6 +141,63 @@ function removerLivro(index) {
       atualizarResumo();
     }
   );
+}
+
+function editarLivro(index) {
+  livroAtualIndex = index;
+  const livro = livrosDisponiveis[index];
+
+  document.getElementById("titulo-edicao").value = livro.titulo;
+  document.getElementById("autor-edicao").value = livro.autor;
+  document.getElementById("preco-edicao").value = livro.preco;
+
+  document.getElementById("editModal").style.display = "block";
+}
+
+function salvarEdicao() {
+  const titulo = document.getElementById("titulo-edicao").value;
+  const autor = document.getElementById("autor-edicao").value;
+  const preco = parseFloat(document.getElementById("preco-edicao").value);
+
+  if (
+    titulo.trim() === "" ||
+    autor.trim() === "" ||
+    isNaN(preco) ||
+    preco <= 0
+  ) {
+    exibirNotificacao(
+      "Por favor, preencha todos os campos corretamente.",
+      "error"
+    );
+    return;
+  }
+
+  livrosDisponiveis[livroAtualIndex] = { titulo, autor, preco };
+  exibirNotificacao("Livro editado com sucesso!", "success");
+
+  atualizarListaLivros();
+  atualizarResumo();
+  fecharModal();
+}
+
+function cancelarEdicao() {
+  fecharModal();
+}
+
+function fecharModal() {
+  livroAtualIndex = null;
+  document.getElementById("editModal").style.display = "none";
+}
+
+// Função para exibir notificações com feedback visual
+function exibirNotificacao(mensagem, tipo) {
+  const notificationElement = document.getElementById("notification");
+  notificationElement.textContent = mensagem;
+  notificationElement.classList.add("show", tipo);
+
+  setTimeout(() => {
+    notificationElement.classList.remove("show", tipo);
+  }, 3000);
 }
 
 // Função para calcular o preço total dos livros
@@ -216,7 +274,8 @@ function pesquisarPorAutor() {
               Título: ${livro.titulo}<br>
               Autor: ${livro.autor}<br>
               Preço: R$ ${livro.preco.toFixed(2)}<br>
-              <button onclick="removerLivro(${index})">Remover</button>
+              <button class="editar" onclick="editar(${index})">Editar</button>
+              <button class="remover" onclick="removerLivro(${index})">Remover</button>
           `;
       livrosListElement.appendChild(livroElement);
     }

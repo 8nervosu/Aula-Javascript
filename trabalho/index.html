@@ -85,6 +85,21 @@
       </div>
     </div>
 
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2>Editar Livro</h2>
+        <label for="titulo-edicao">Título:</label>
+        <input type="text" id="titulo-edicao" />
+        <label for="autor-edicao">Autor:</label>
+        <input type="text" id="autor-edicao" />
+        <label for="preco-edicao">Preço:</label>
+        <input type="number" id="preco-edicao" />
+        <button onclick="salvarEdicao()">Salvar</button>
+        <button onclick="cancelarEdicao()">Cancelar</button>
+      </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
   </body>
