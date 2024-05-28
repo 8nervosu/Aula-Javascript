@@ -243,3 +243,28 @@ input:checked + .slider:before {
   max-height: 430px;
   overflow-y: auto;
 }
+
+.success {
+  background-color: #28a745;
+}
+
+.error {
+  background-color: #dc3545;
+}
+
+.info {
+  background-color: #038a83;
+}
+
+/* Estilos para ícones */
+.icon {
+  margin-left: 5px;
+}
+
+.icon.success::before {
+  content: "\2713"; /* Símbolo de marca de seleção */
+}
+
+.icon.error::before {
+  content: "\26A0"; /* Símbolo de ponto de exclamação */
+}

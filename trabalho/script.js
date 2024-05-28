@@ -2,13 +2,13 @@ let livrosDisponiveis = [];
 let ordenacaoCrescente = true; // Variável para controlar a direção da ordenação
 
 // Função para exibir notificações
-function exibirNotificacao(mensagem) {
+function exibirNotificacao(mensagem, tipo) {
   const notificationElement = document.getElementById("notification");
   notificationElement.textContent = mensagem;
-  notificationElement.classList.add("show");
+  notificationElement.classList.add("show", tipo);
 
   setTimeout(() => {
-    notificationElement.classList.remove("show");
+    notificationElement.classList.remove("show", tipo);
   }, 3000);
 }
 
@@ -28,10 +28,16 @@ function adicionarLivro() {
 
     // Adicionando o livro ao array de livros disponíveis
     livrosDisponiveis.push(livro);
-    exibirNotificacao("Livro adicionado com sucesso!");
+    exibirNotificacao("Livro adicionado com sucesso!", "success");
     atualizarListaLivros();
     atualizarResumo();
     limparFormulario();
+
+    // Adiciona classes de sucesso ao botão de "Adicionar Livro"
+    document.getElementById("adicionarLivroBtn").classList.add("success");
+  } else {
+    // Adiciona classes de erro ao botão de "Adicionar Livro"
+    document.getElementById("adicionarLivroBtn").classList.add("error");
   }
 }
 
@@ -42,17 +48,20 @@ function validarFormulario() {
   let preco = parseFloat(document.getElementById("preco").value);
 
   if (titulo.trim() === "") {
-    exibirNotificacao("Por favor, insira o título do livro.");
+    exibirNotificacao("Por favor, insira o título do livro.", "error");
     return false;
   }
 
   if (autor.trim() === "") {
-    exibirNotificacao("Por favor, insira o nome do autor.");
+    exibirNotificacao("Por favor, insira o nome do autor.", "error");
     return false;
   }
 
   if (isNaN(preco) || preco <= 0) {
-    exibirNotificacao("Por favor, insira um preço válido para o livro.");
+    exibirNotificacao(
+      "Por favor, insira um preço válido para o livro.",
+      "error"
+    );
     return false;
   }
 
@@ -64,6 +73,11 @@ function limparFormulario() {
   document.getElementById("titulo").value = "";
   document.getElementById("autor").value = "";
   document.getElementById("preco").value = "";
+
+  // Remove classes de sucesso e erro do botão de "Adicionar Livro"
+  document
+    .getElementById("adicionarLivroBtn")
+    .classList.remove("success", "error");
 }
 
 // Função para exibir os livros disponíveis
@@ -119,7 +133,10 @@ function removerLivro(index) {
     `Tem certeza de que deseja remover o livro "${livroRemover}"?`,
     () => {
       livrosDisponiveis.splice(index, 1);
-      exibirNotificacao(`Livro "${livroRemover}" removido com sucesso!`);
+      exibirNotificacao(
+        `Livro "${livroRemover}" removido com sucesso!`,
+        "success"
+      );
       atualizarListaLivros();
       atualizarResumo();
     }
@@ -164,7 +181,8 @@ function aplicarDesconto() {
   );
   if (isNaN(percentualDesconto) || percentualDesconto < 0) {
     exibirNotificacao(
-      "Percentual de desconto inválido. Insira um número positivo."
+      "Percentual de desconto inválido. Insira um número positivo.",
+      "error"
     );
     return;
   }
@@ -173,7 +191,7 @@ function aplicarDesconto() {
     let desconto = livro.preco * (percentualDesconto / 100);
     livro.preco -= desconto;
   }
-  exibirNotificacao("Desconto aplicado com sucesso!");
+  exibirNotificacao("Desconto aplicado com sucesso!", "success");
   atualizarListaLivros();
   atualizarResumo();
 }
@@ -214,7 +232,7 @@ function ordenarPorPreco() {
     livrosDisponiveis.sort((a, b) => b.preco - a.preco);
   }
   ordenacaoCrescente = !ordenacaoCrescente; // Alternar a direção da ordenação
-  exibirNotificacao("Livros ordenados por preço.");
+  exibirNotificacao("Livros ordenados por preço.", "info");
   atualizarListaLivros();
 }
 
@@ -251,14 +269,14 @@ function generateFakeData() {
 
   atualizarListaLivros();
   atualizarResumo();
-  exibirNotificacao("Dados falsos adicionados com sucesso!");
+  exibirNotificacao("Dados falsos adicionados com sucesso!", "info");
 }
 
 function clearFakeData() {
   livrosDisponiveis = livrosDisponiveis.filter((book) => !book.fake);
   atualizarListaLivros();
   atualizarResumo();
-  exibirNotificacao("Dados falsos removidos com sucesso!");
+  exibirNotificacao("Dados falsos removidos com sucesso!", "info");
 }
 
 // Função para exportar a lista de livros em PDF

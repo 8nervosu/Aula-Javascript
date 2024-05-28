@@ -19,12 +19,14 @@
             <input type="text" id="autor" />
             <label for="preco">Preço:</label>
             <input type="number" id="preco" />
-            <button onclick="adicionarLivro()">Adicionar Livro</button>
+            <button id="adicionarLivroBtn" onclick="adicionarLivro()">
+              Adicionar Livro
+            </button>
           </div>
 
           <div class="actions-container">
             <h2>Ações</h2>
-            <label for="percentualDesconto">Percentual de Desconto:</label>
+            <label for="percentualDesconto">Percentual de Desconto (%):</label>
             <input type="number" id="percentualDesconto" placeholder="0" />
             <button onclick="aplicarDesconto()">Aplicar Desconto</button>
             <label for="autorPesquisa">Pesquisar por Autor:</label>
