@@ -30,8 +30,15 @@
             <input type="number" id="percentualDesconto" placeholder="0" />
             <button onclick="aplicarDesconto()">Aplicar Desconto</button>
             <label for="autorPesquisa">Pesquisar por Autor:</label>
-            <input type="text" id="autorPesquisa" />
-            <button onclick="pesquisarPorAutor()">Pesquisar</button>
+            <div>
+              <input
+                type="text"
+                id="autorPesquisa"
+                placeholder="Pesquisar por autor"
+                oninput="pesquisarPorAutor()"
+              />
+              <button onclick="limparPesquisa()">Limpar Pesquisa</button>
+            </div>
           </div>
         </div>
 

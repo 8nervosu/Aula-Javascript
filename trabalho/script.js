@@ -214,14 +214,20 @@ function pesquisarPorAutor() {
     for (let [index, livro] of livrosFiltrados.entries()) {
       let livroElement = document.createElement("li");
       livroElement.innerHTML = `
-      Título: ${livro.titulo}<br>
-      Autor: ${livro.autor}<br>
-      Preço: R$ ${livro.preco.toFixed(2)}<br>
-      <button onclick="removerLivro(${index})">Remover</button>
-    `;
+              Título: ${livro.titulo}<br>
+              Autor: ${livro.autor}<br>
+              Preço: R$ ${livro.preco.toFixed(2)}<br>
+              <button onclick="removerLivro(${index})">Remover</button>
+          `;
       livrosListElement.appendChild(livroElement);
     }
   }
+}
+
+// Função para limpar a pesquisa
+function limparPesquisa() {
+  document.getElementById("autorPesquisa").value = "";
+  atualizarListaLivros();
 }
 
 // Função para ordenar os livros por preço

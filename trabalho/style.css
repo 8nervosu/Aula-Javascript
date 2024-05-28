@@ -1,11 +1,9 @@
-/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilo do corpo */
 body {
   font-family: "Arial", sans-serif;
   background-color: #f8f9fa;
@@ -14,7 +12,6 @@ body {
   padding: 20px;
 }
 
-/* Estilo do contêiner principal */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -24,7 +21,6 @@ body {
   border-radius: 8px;
 }
 
-/* Títulos */
 h1 {
   text-align: center;
   color: #007bff;
@@ -36,7 +32,6 @@ h2 {
   color: #0056b3;
 }
 
-/* Estilo dos contêineres divididos */
 .split-container {
   display: flex;
   justify-content: space-between;
@@ -165,7 +160,6 @@ ul li button:hover {
   margin: 10px;
 }
 
-/* Estilo do cabeçalho da lista */
 .list-header {
   display: flex;
   justify-content: space-between;
@@ -254,17 +248,4 @@ input:checked + .slider:before {
 
 .info {
   background-color: #038a83;
-}
-
-/* Estilos para ícones */
-.icon {
-  margin-left: 5px;
-}
-
-.icon.success::before {
-  content: "\2713"; /* Símbolo de marca de seleção */
-}
-
-.icon.error::before {
-  content: "\26A0"; /* Símbolo de ponto de exclamação */
 }
